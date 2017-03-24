@@ -1516,17 +1516,24 @@ Object.defineProperty(window, 'is_block_adb_enabled', { value: false });
 d3pkae9owd2lcf.cloudfront.net/mb105.js application/javascript
 (function() {
 	var noopfn = function(){};
+	var regSlotsMap = {};
+	
 	window.pbjs = { libLoaded: true };
 	window.MonkeyBroker = window.MonkeyBroker || {
 		addAttribute: noopfn,
-		addSlot: noopfn,
+		addSlot: function(data) {
+      var slot = data && data.slot || 'slot';
+      var slotData = typeof data === 'object' ? data : {};
+			regSlotsMap[slot] = slotData;
+		},
 		defineSlot: noopfn,
 		fillSlot: noopfn,
 		go: noopfn,
 		inventoryConditionalPlacement: noopfn,
 		registerSizeCallback: noopfn,
 		registerSlotCallback: noopfn,
-		slots: {}
+		slots: {},
+		regSlotsMap: regSlotsMap
 	};
 })();
 
